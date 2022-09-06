@@ -7,6 +7,12 @@ function dec2bin(dec,places)
 }
 function potega(podstawa,wykladnik)
 {
-	return podstawa^wykladnik
+	return (podstawa)^(wykladnik);
 }
+function generujEtykiete()
+{
+let label="svg width=";
+
+}
+
 ;

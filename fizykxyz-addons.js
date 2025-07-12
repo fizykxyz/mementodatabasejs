@@ -148,7 +148,50 @@ function LightenDarkenColor(col,amt)
 //rec.set("RTF", kalendarz());
 
 //document.body.innerHTML += kalendarz();
+
+
+
 //message(kalendarz());
 //alert(kalendarz());
 
 
+function ExportHML()
+{
+var selectedEntries = selection();
+
+if (selectedEntries.length == 0) {
+    alert('Nie wybrano żadnych rekordów.');
+} else {
+    var html = '<html><head><title>Rekordy</title>';
+    html += '<style>table {border-collapse: collapse; width: 100%;} th, td {border: 1px solid black; padding: 5px; text-align: left;}</style>';
+    html += '</head><body>';
+    html += '<h1>Rekordy</h1>';
+    html += '<table>';
+    
+    html += '<tr>';
+    var fields = lib().fields();
+    for (var i in fields) {
+        html += '<th>' + fields[i].name + '</th>';
+    }
+    html += '</tr>';
+    
+    for (var j in selectedEntries) {
+        var entry = selectedEntries[j];
+        html += '<tr>';
+        for (var i in fields) {
+            var field = fields[i];
+            var value = entry.field(field.name);
+            html += '<td>' + value + '</td>';
+        }
+        html += '</tr>';
+    }
+    
+    html += '</table></body></html>';
+    
+    var filePath = file().createTempFile('rekordy.html');
+    file().write(filePath, html);
+    
+    shareFile(filePath, 'text/html');
+}
+  
+}
